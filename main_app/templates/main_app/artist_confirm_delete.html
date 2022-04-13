@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Delete Artist</h2>
+
+<h3>You are about to delete<span class='teal-text'>{{ object.name }}</span></h3>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="YEE, do it" class="btn">
+    <a href="{% url 'detail' artist.id %}">NAIR</a>
+</form>
+{% endblock %}
