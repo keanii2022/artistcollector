@@ -16,8 +16,16 @@ def artists_index(request):
 
 def artists_detail(request, artist_id):
     artist = Artist.objects.get(id=artist_id)
+    id_list = artist.venue.all().values_list('id')
+    venues_artist_doesnt_have = Venue.objects.exclude(id__in=id_list)
     shows_form = ShowsForm()
-    return render(request, 'artists/detail.html', {'artist': artist, 'shows_form': shows_form})
+    return render(request, 'artists/detail.html', {'artist': artist, 'shows_form': shows_form,
+        'venues': venues_artist_doesnt_have
+    })
+
+def assoc_venue(request, artist_id, venue_id):
+    Artist.objects.get(id=artist_id).venue.add(venue_id)
+    return redirect('detail', artist_id=artist_id)
 
 class ArtistCreate(CreateView):
     model = Artist

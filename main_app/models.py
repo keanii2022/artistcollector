@@ -8,15 +8,14 @@ CITIES = (
     ('SD', 'San Diego'),
     ('NY', 'New York'),
 )
-
 class Venue(models.Model):
     name = models.CharField(max_length=60)
-    
+
     def __str__(self):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('venue_detail', kwargs={'pk': self.id})
+        return reverse('venues_detail', kwargs={'pk': self.id})
 
 class Artist(models.Model):
     name = models.CharField(max_length=100)
@@ -44,4 +43,5 @@ class Shows(models.Model):
     def __str__(self):
         return f"{self.get_city_display()} on {self.date}"
 
-    
+class Meta:
+    ordering = ['-date']
